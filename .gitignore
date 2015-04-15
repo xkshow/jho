@@ -1,6 +1,23 @@
-*.class
+#**************************
+# auto-generated project-properties
+#**************************
+*.settings/
+*.myhibernatedata
+*.project
+*.classpath
 
-# Package Files #
+#**************************
+# auto-generated files    
+#**************************
+# Folder
+*target/
+*temp/
+
+# files
+*.class
 *.jar
 *.war
 *.ear
+*Thumbs.db
+*.log*
+*.bak
