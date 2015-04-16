@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 
@@ -48,7 +49,7 @@ import edu.uci.ics.crawler4j.url.WebURL;
  * thread.
  * 
  * @author Yasser Ganjisaffar
- * @author hardy<2015-04-15> 1.新增超时重复处理模块  2.去除常量static修饰
+ * @author hardy<2015-04-15> 1.新增连接重复处理模块  2.去除常量static修饰
  */
 public class WebCrawler implements Runnable {
 
@@ -413,6 +414,9 @@ public class WebCrawler implements Runnable {
 					onUnexpectedStatusCode(curURL.getURL(),
 							fetchResult.getStatusCode(), contentType,
 							description);
+					if(fetchResult.getStatusCode() == 503){
+						reprocessPage("503", curURL);
+					}
 				}
 
 			} else { // if status code is 200
@@ -487,34 +491,66 @@ public class WebCrawler implements Runnable {
 			String urlStr = (curURL == null ? "NULL" : curURL.getURL());
 			logger.error("{}, while processing: {}", e.getMessage(), urlStr);
 			if (e.getMessage().contains("Connection timed out")) {
-				mapErrorUrl.put(urlStr, mapErrorUrl.containsKey(urlStr) ? mapErrorUrl.get(urlStr) + 1 : 1);
-				try {
-					switch (mapErrorUrl.get(urlStr)) {
-						case 1:
-							logger.info("To perform the timeout connection: {}",urlStr);
-							Thread.sleep(5 * 1000);
-							break;
-						case 2:
-							logger.info("To perform the timeout connection(twice): {}",urlStr);
-							Thread.sleep(10 * 1000);
-							break;
-						case 3:
-							logger.info("To perform the timeout connection(thrice): {}",urlStr);
-							Thread.sleep(30 * 1000);
-							break;
-						default:
-							return; // 3次超时，则放弃
-					}
-					processPage(curURL);
-				} catch (InterruptedException ie) {
-					logger.error("Error occurred", ie);
-				}
-			}
-			logger.debug("Stacktrace", e);
+				reprocessPage("timeout", curURL);	
+				logger.debug("Stacktrace", e);
+			} else {
+				logger.error("Stacktrace", e);
+			}	
 		} finally {
 			if (fetchResult != null) {
 				fetchResult.discardContentIfNotConsumed();
 			}
+		}
+	}
+	
+	/**
+	 * 重复处理页面鉴定：同一请求，最多3次重复执行机会
+	 * @Author hardy<2015年4月16日>
+	 * @param status 状态信息(timeout|503)
+	 * @param curURL
+	 */
+	private void reprocessPage(String status, WebURL curURL) {
+		String url = (curURL == null ? "NULL" : curURL.getURL());
+		if(StringUtils.isEmpty(status) || StringUtils.isEmpty(url))
+			return;
+		
+		mapErrorUrl.put(url, mapErrorUrl.containsKey(url) ? mapErrorUrl.get(url) + 1 : 1);
+		try {
+			String infoBody;//信息主体
+			int infoThread;//线程休眠时间(秒)
+			
+			// 构建信息主体、线程休眠时间
+			if(status.equalsIgnoreCase("timeout")){//请求超时
+				infoBody = "Request timeout";
+				infoThread = 5;
+			}else if(status.equalsIgnoreCase("503")){
+				infoBody = "StatusCode=503";
+				infoThread = 60;
+			}else{
+				return;
+			}
+			
+			// 执行信息主体、线程休眠时间
+			switch (mapErrorUrl.get(url)) {
+				case 1:
+					logger.info("Repeat the connection: {}: {}", infoBody, url);
+					Thread.sleep(infoThread * 1000);
+					break;
+				case 2:
+					logger.info("Repeat the connection: {}(twice): {}", infoBody, url);
+					Thread.sleep(infoThread * 3 * 1000);
+					break;
+				case 3:
+					logger.info("Repeat the connection: {}(thrice): {}", infoBody, url);
+					Thread.sleep(infoThread * 6 * 1000);
+					break;
+				default:
+					return; // 3次，则放弃
+			}
+			
+			processPage(curURL);
+		} catch (InterruptedException ie) {
+			logger.error("Error occurred", ie);
 		}
 	}
 

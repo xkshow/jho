@@ -137,12 +137,13 @@ public class Parser extends Configurable {
 				if (!hrefLoweredCase.contains("mailto:")
 						&& !hrefLoweredCase.contains("@")) {
 					if (hrefLoweredCase.contains("javascript:")) {
-						if (hrefLoweredCase.contains("callbackc,'content.jsp")) {
-							href = href.replace(
-									"javascript:commitForECMA(callbackC,'", "");
+						if(hrefLoweredCase.contains("callbackc,'content.jsp")){
+							href = href.replace("javascript:commitForECMA(callbackC,'", "");
 							href = href.replace("',null)", "");
-							href = href.split("&tableView=")[0] + href.substring(href.indexOf("&Id="));
-						} else {
+							if(href.indexOf("&Id=") > -1){
+								href = href.split("&tableView=")[0] + href.substring(href.indexOf("&Id="));
+							}
+						}else{
 							continue;
 						}
 					}
