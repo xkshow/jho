@@ -1,10 +1,10 @@
 /*
- *Project: jhd-crawler
- *File: com.glorypty.crawler.Controller.java <2015年4月2日>
+ *Project: jho-crawler4j
+ *File: cn.xkshow.opensource.crawler4j.BaseController.java <2015年4月2日>
  ****************************************************************
  * 版权所有@2015 小康秀网络科技  保留所有权利.
  ***************************************************************/
-package edu.uci.ics.crawler4j.helper;
+package cn.xkshow.opensource.crawler4j;
 
 import java.util.List;
 
@@ -122,4 +122,3 @@ public abstract class BaseController {
 	public abstract void door(List<String> lstUrls) throws Exception;
 		
 }
-

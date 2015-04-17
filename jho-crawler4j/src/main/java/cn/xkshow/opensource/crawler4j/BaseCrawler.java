@@ -1,11 +1,10 @@
 /*
- *Project: jhd-crawler
- *File: com.glorypty.crawler.base.BaseCrawler.java  <2015年4月14日>
+ *Project: jho-crawler4j
+ *File: cn.xkshow.opensource.crawler4j.BaseCrawler.java <2015年4月4日>
  ****************************************************************
  * 版权所有@2015 小康秀网络科技  保留所有权利.
  ***************************************************************/
-package edu.uci.ics.crawler4j.helper;
-
+package cn.xkshow.opensource.crawler4j;
 import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;

@@ -49,7 +49,7 @@ import edu.uci.ics.crawler4j.url.WebURL;
  * thread.
  * 
  * @author Yasser Ganjisaffar
- * @author hardy<2015-04-15> 1.新增连接重复处理模块  2.去除常量static修饰
+ * @author hardy<2015-04-15> 优化
  */
 public class WebCrawler implements Runnable {
 
@@ -272,11 +272,15 @@ public class WebCrawler implements Runnable {
 		return null;
 	}
 
+	/**
+	 * @author hardy<2015-04-16> 将assignedURLs对象的定义移出循环外
+	 */
 	@Override
 	public void run() {
 		onStart();
+		List<WebURL> assignedURLs;
 		while (true) {
-			List<WebURL> assignedURLs = new ArrayList<>(100);
+			assignedURLs = new ArrayList<>(100);
 			isWaitingForNewURLs = true;
 			frontier.getNextURLs(100, assignedURLs);
 			isWaitingForNewURLs = false;
