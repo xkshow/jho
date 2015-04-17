@@ -494,7 +494,7 @@ public class WebCrawler implements Runnable {
 		} catch (Exception e) {
 			String urlStr = (curURL == null ? "NULL" : curURL.getURL());
 			logger.error("{}, while processing: {}", e.getMessage(), urlStr);
-			if (e.getMessage().contains("Connection timed out")) {
+			if (e.getMessage().contains("timed out")) {
 				reprocessPage("timeout", curURL);	
 				logger.debug("Stacktrace", e);
 			} else {
@@ -526,7 +526,7 @@ public class WebCrawler implements Runnable {
 			// 构建信息主体、线程休眠时间
 			if(status.equalsIgnoreCase("timeout")){//请求超时
 				infoBody = "Request timeout";
-				infoThread = 5;
+				infoThread = 10;
 			}else if(status.equalsIgnoreCase("503")){
 				infoBody = "StatusCode=503";
 				infoThread = 60;
