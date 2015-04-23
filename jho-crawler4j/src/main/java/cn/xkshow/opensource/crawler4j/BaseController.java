@@ -2,7 +2,7 @@
  *Project: jho-crawler4j
  *File: cn.xkshow.opensource.crawler4j.BaseController.java <2015年4月2日>
  ****************************************************************
- * 版权所有@2015 小康秀网络科技  保留所有权利.
+ * 版权所有@2015 XKSHOW.CN  保留所有权利.
  ***************************************************************/
 package cn.xkshow.opensource.crawler4j;
 
