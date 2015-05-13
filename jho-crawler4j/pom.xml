@@ -6,7 +6,7 @@
 		<artifactId>parent</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	<artifactId>crawler4j</artifactId>	
+	<artifactId>jho-crawler4j</artifactId>	
 	<version>4.2-SNAPSHOT</version>
 	<url>https://github.com/yasserg/crawler4j</url>
 
