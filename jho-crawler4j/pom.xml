@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>cn.xkshow.opensource</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>jho</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>jho-crawler4j</artifactId>	
