@@ -41,8 +41,8 @@ import edu.uci.ics.crawler4j.util.Net;
 import edu.uci.ics.crawler4j.util.Util;
 
 /**
- * @author Yasser Ganjisaffar
- * @author hardy<2015-04-15> 1.临时Ajax深度爬行
+ * @Author Yasser Ganjisaffar
+ * @Rewrite hardy<2015-04-15> 1.临时Ajax深度爬行
  */
 public class Parser extends Configurable {
 

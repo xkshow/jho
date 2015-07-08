@@ -48,8 +48,8 @@ import edu.uci.ics.crawler4j.url.WebURL;
  * WebCrawler class in the Runnable class that is executed by each crawler
  * thread.
  * 
- * @author Yasser Ganjisaffar
- * @author hardy<2015-04-15> 优化
+ * @Author Yasser Ganjisaffar
+ * @Rewrite hardy<2015-04-15> 优化
  */
 public class WebCrawler implements Runnable {
 
