@@ -3,11 +3,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.xkshow.opensource</groupId>
 	<artifactId>jho</artifactId>
-	<version>0.0.1</version>
+	<version>1.016.0</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>jho-crawler4j</module>
+		<module>jho-tomcat-session-redis</module>
 	</modules>
+	
+	<properties>
+		<!-- build -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<build.jdk>1.7</build.jdk>
+		<build.maven-compiler-plugin>2.5.1</build.maven-compiler-plugin>
+		<build.maven-resources-plugin>2.6</build.maven-resources-plugin>
+		<build.maven-surefire>2.10</build.maven-surefire>		
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -17,5 +27,41 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<plugins>
+			<!-- 编译环境 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${build.maven-compiler-plugin}</version>
+				<configuration>
+					<source>${build.jdk}</source>
+					<target>${build.jdk}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${build.maven-resources-plugin}</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${build.maven-surefire}</version>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+					<excludes>
+						<exclude>**/*Test.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	
 </project>

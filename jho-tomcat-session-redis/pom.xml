@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.xkshow.opensource</groupId>
+		<artifactId>jho</artifactId>
+		<version>1.016.0</version>
+	</parent>
+	<artifactId>jho-tomcat-session-redis</artifactId>
+	<version>1.2</version>
+	<description>
+		Suggest environment configuration is as follows: jdk7,tomcat7,jedis2.7.2
+		Directions for use, Copy the jar to tomcat lib:commons-pool2-2.3.jar,jedis2.7.2,tomcat-session-redis-1.2.jar
+	</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-catalina</artifactId>
+			<version>7.0.53</version>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.7.2</version>
+		</dependency>
+	</dependencies>
+
+</project>
